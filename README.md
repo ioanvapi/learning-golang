@@ -6,3 +6,6 @@ Exercises while learning golang
 
 ## IDE
 * atom + go-plus
+
+## Refs
+* gobyexample: <https://gobyexample.com/> <http://gobyexample.everyx.in/>
