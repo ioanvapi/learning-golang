@@ -1,4 +1,6 @@
 //数据库连接池测试
+// ab -c 100 -n 1000 'http://localhost:9090/pool'
+// show processlist
 package main
 
 import (
