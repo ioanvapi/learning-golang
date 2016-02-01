@@ -75,7 +75,7 @@ func query() {
 
 //更新数据
 func update() {
-	db, err := sql.Open("mysql", "root:@/test?charset=utf8")
+	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/test?charset=utf8")
 	checkErr(err)
 
 	stmt, err := db.Prepare(`UPDATE user SET user_age=?,user_sex=? WHERE user_id=?`)
@@ -89,7 +89,7 @@ func update() {
 
 //删除数据
 func remove() {
-	db, err := sql.Open("mysql", "root:@/test?charset=utf8")
+	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/test?charset=utf8")
 	checkErr(err)
 
 	stmt, err := db.Prepare(`DELETE FROM user WHERE user_id=?`)
