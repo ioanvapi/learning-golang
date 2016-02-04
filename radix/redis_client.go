@@ -16,12 +16,17 @@ func errHndlr(err error) {
 }
 
 func main() {
-	c, err := redis.DialTimeout("tcp", "127.0.0.1:6379", 10 * time.Second)
+	c, err := redis.DialTimeout("tcp", "127.0.0.1:6379", 10*time.Second)
 	errHndlr(err)
 	defer c.Close()
 
 	r := c.Cmd("select", 0)
 	errHndlr(r.Err)
+
+	r = c.Cmd("PING")
+	errHndlr(r.Err)
+	s, _ := r.Str()
+	fmt.Println("PING get: ", s)
 
 	r = c.Cmd("flushdb")
 	errHndlr(r.Err)
@@ -35,7 +40,7 @@ func main() {
 
 	r = c.Cmd("echo", "Hello world!")
 	errHndlr(r.Err)
-	s, _ := r.Str()
+	s, _ = r.Str()
 	fmt.Println("echo: ", s)
 
 	r = c.Cmd("set", "mykey0", "myval0")
