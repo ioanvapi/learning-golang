@@ -12,7 +12,14 @@ var (
 	b float32
 )
 
+func test() (int, string) {
+	return 1, "abc"
+}
+
 func main() {
 	n, s := 0x1234, "Hello, World!"
 	fmt.Println(x, s, n)
+
+	_, m := test()
+	fmt.Println(m)
 }
