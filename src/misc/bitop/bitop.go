@@ -18,4 +18,8 @@ func main() {
 	fmt.Printf("%b\n", a)
 	a = a &^ (1 << 6) // 0000100: 清除 bit6 标志位
 	fmt.Printf("%b\n", a)
+
+	// 取反用"^"
+	x := 1
+	fmt.Printf("%b, %b\n", x, ^x)
 }
