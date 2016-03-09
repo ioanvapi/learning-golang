@@ -7,7 +7,17 @@ import (
 )
 
 func main() {
-	cl, err := cluster.New("10.0.5.134:7000")
+	// cl, err := cluster.New("10.0.5.134:7000")
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	var o cluster.Opts
+
+	o.Addr = "10.0.5.134:7000"
+	o.PoolSize = 20
+
+	cl, err := cluster.NewWithOpts(o)
 	if err != nil {
 		panic(err)
 	}
