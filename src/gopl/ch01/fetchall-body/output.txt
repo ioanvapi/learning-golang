@@ -1,0 +1,12 @@
+0.95s      204  http://httpbin.org/get
+0.96s      122  http://httpbin.org/headers
+0.96s elapsed
+0.54s      204  http://httpbin.org/get
+0.55s      204  http://httpbin.org/get
+0.55s elapsed
+0.51s      204  http://httpbin.org/get
+0.52s      204  http://httpbin.org/get
+0.52s elapsed
+0.51s      204  http://httpbin.org/get
+0.54s      204  http://httpbin.org/get
+0.54s elapsed
