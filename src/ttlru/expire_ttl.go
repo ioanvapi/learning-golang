@@ -11,6 +11,8 @@ func main() {
 	cache := ttlru.New(10, 3*time.Second)
 	fmt.Println(cache.Cap(), cache.Len())
 
+	cache.NoReset = true
+
 	cache.Set("foo", "bar")
 
 	val, ok := cache.Get("foo")
