@@ -12,9 +12,9 @@ type Person struct {
 type Address struct {
 	Number string
 	Street string
-	City string
-	State string
-	Zip string
+	City   string
+	State  string
+	Zip    string
 }
 
 // declaring a method
@@ -39,9 +39,9 @@ func main() {
 		Address: Address{
 			Number: "13",
 			Street: "Main",
-			City: "Gotham",
-			State: "NY",
-			Zip: "01313",
+			City:   "Gotham",
+			State:  "NY",
+			Zip:    "01313",
 		},
 	}
 

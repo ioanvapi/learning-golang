@@ -10,8 +10,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/mediocregopher/radix.v2/redis"
 	"github.com/mediocregopher/radix.v2/pool"
+	"github.com/mediocregopher/radix.v2/redis"
 )
 
 // error codes

@@ -37,7 +37,7 @@ func listPopular(w http.ResponseWriter, r *http.Request) {
 	// Loop through the 3 albums, writing the details as a plain text list
 	// to the client.
 	for i, ab := range abs {
-		fmt.Fprintf(w, "%d) %s by %s: £%.2f [%d likes] \n", i + 1, ab.Title, ab.Artist, ab.Price, ab.Likes)
+		fmt.Fprintf(w, "%d) %s by %s: £%.2f [%d likes] \n", i+1, ab.Title, ab.Artist, ab.Price, ab.Likes)
 	}
 }
 
@@ -81,7 +81,7 @@ func addLike(w http.ResponseWriter, r *http.Request) {
 
 	// Redirect the client to the GET /ablum route, so they can see the
 	// impact their like has had.
-	http.Redirect(w, r, "/album?id=" + id, 303)
+	http.Redirect(w, r, "/album?id="+id, 303)
 }
 
 func showAlbum(w http.ResponseWriter, r *http.Request) {

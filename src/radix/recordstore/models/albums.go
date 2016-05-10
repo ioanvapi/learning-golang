@@ -70,7 +70,7 @@ func FindTopThree() ([]*Album, error) {
 		// Loop through the ids returned by ZREVRANGE, queuing HGETALL
 		// commands to fetch the individual album details.
 		for _, id := range reply {
-			err := conn.Cmd("HGETALL", "album:" + id).Err
+			err := conn.Cmd("HGETALL", "album:"+id).Err
 			if err != nil {
 				return nil, err
 			}
@@ -127,7 +127,7 @@ func IncrementLikes(id string) error {
 	// Before we do anything else, check that an album with the given id
 	// exists. The EXISTS command returns 1 if a specific key exists
 	// in the database, and 0 if it doesn't.
-	exists, err := conn.Cmd("EXISTS", "album:" + id).Int()
+	exists, err := conn.Cmd("EXISTS", "album:"+id).Int()
 	if err != nil {
 		return err
 	} else if exists == 0 {
@@ -146,7 +146,7 @@ func IncrementLikes(id string) error {
 	// it is QUEUED as part of the transaction. We still need to check
 	// the reply's Err field at this point in case there was a problem
 	// queueing the command.
-	err = conn.Cmd("HINCRBY", "album:" + id, "likes", 1).Err
+	err = conn.Cmd("HINCRBY", "album:"+id, "likes", 1).Err
 	if err != nil {
 		return err
 	}
@@ -199,7 +199,7 @@ func FindAlbum(id string) (*Album, error) {
 	// given id, the map[string]string returned by the Map() helper method
 	// will be empty. So we can simply check whether it's length is zero and
 	// return an ErrNoAlbum message if necessary.
-	reply, err := pl.Cmd("HGETALL", "album:" + id).Map()
+	reply, err := pl.Cmd("HGETALL", "album:"+id).Map()
 	if err != nil {
 		return nil, err
 	} else if len(reply) == 0 {

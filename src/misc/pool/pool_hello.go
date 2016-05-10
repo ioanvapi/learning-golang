@@ -1,9 +1,8 @@
 package main
 
 import (
-	"net"
-	"gopkg.in/fatih/pool.v2"
 	"fmt"
+	"net"
 )
 
 func checkErr(err error) {

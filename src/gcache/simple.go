@@ -12,8 +12,8 @@ func main() {
 		LRU().
 		Expiration(2 * time.Second).
 		LoaderFunc(func(key interface{}) (interface{}, error) {
-		return "ok1", nil
-	}).
+			return "ok1", nil
+		}).
 		Build()
 	gc.Set("key", "ok")
 	value, err := gc.Get("key")

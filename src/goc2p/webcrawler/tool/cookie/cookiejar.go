@@ -1,9 +1,10 @@
 package cookie
 
 import (
-	"code.google.com/p/go.net/publicsuffix"
 	"net/http"
 	"net/http/cookiejar"
+
+	"code.google.com/p/go.net/publicsuffix"
 )
 
 // 创建 http.CookieJar 类型的值。

@@ -13,6 +13,6 @@ func main() {
 
 	Greeting("hello", "tony", "Alice", "Mike")
 
-	Greeting("bye", users ...)
+	Greeting("bye", users...)
 	Greeting("bye", users...) // both ok
 }

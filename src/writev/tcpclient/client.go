@@ -3,14 +3,14 @@
 package main
 
 import (
-	"fmt"
 	"flag"
-	"os"
-	"runtime"
-	"net"
-	"sync"
+	"fmt"
 	"io"
 	"io/ioutil"
+	"net"
+	"os"
+	"runtime"
+	"sync"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 	var nbCpus = flag.Int("cpus", 1, "the cpus to use")
 	var nbClients = flag.Int("clients", 1, "the concurrency client to start")
 
-	flag.Usage = func(){
+	flag.Usage = func() {
 		fmt.Println(fmt.Sprintf("Usage: %v [--server=string] [--port=int] [--cpus=int] [--clients=int] [--header=int] [-h|--help]", os.Args[0]))
 		fmt.Println(fmt.Sprintf("	server, the server address. default 127.0.0.1"))
 		fmt.Println(fmt.Sprintf("	port, the server port. default 1985"))
@@ -46,21 +46,21 @@ func main() {
 
 			var err error
 			var addr *net.TCPAddr
-			if addr,err = net.ResolveTCPAddr("tcp", fmt.Sprintf("%v:%v", *server, *port)); err != nil {
+			if addr, err = net.ResolveTCPAddr("tcp", fmt.Sprintf("%v:%v", *server, *port)); err != nil {
 				panic(err)
 			}
 			var c *net.TCPConn
-			if c,err = net.DialTCP("tcp", nil, addr); err != nil {
+			if c, err = net.DialTCP("tcp", nil, addr); err != nil {
 				panic(err)
 			}
 
 			for {
-				if _,err = io.Copy(ioutil.Discard, c); err != nil {
+				if _, err = io.Copy(ioutil.Discard, c); err != nil {
 					fmt.Println("ignore", i, "client err", err)
 					break
 				}
 			}
-		} ()
+		}()
 	}
 	wg.Wait()
 	fmt.Println("all", *nbClients, "clients quit.")

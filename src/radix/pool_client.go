@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-//	"time"
+	//	"time"
 
 	"github.com/mediocregopher/radix.v2/pool"
 	"github.com/mediocregopher/radix.v2/redis"
@@ -54,7 +54,7 @@ func main() {
 	}
 
 	// custom connections
-//	time.Sleep(60 * 1000 * time.Millisecond)
+	//	time.Sleep(60 * 1000 * time.Millisecond)
 
 	df := func(network, addr string) (*redis.Client, error) {
 		client, err := redis.Dial(network, addr)
@@ -69,4 +69,3 @@ func main() {
 	}
 	p, err = pool.NewCustom("tcp", "127.0.0.1:6379", 5, df)
 }
-

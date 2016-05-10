@@ -7,24 +7,24 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
-	"fmt"
 )
 
 const (
 	SIMPLE_STRING = '+'
-	BULK_STRING = '$'
-	INTEGER = ':'
-	ARRAY = '*'
-	ERROR = '-'
+	BULK_STRING   = '$'
+	INTEGER       = ':'
+	ARRAY         = '*'
+	ERROR         = '-'
 )
 
 var (
-	arrayPrefixSlice = []byte{ARRAY}
+	arrayPrefixSlice      = []byte{ARRAY}
 	bulkStringPrefixSlice = []byte{BULK_STRING}
-	lineEndingSlice = []byte{'\r', '\n'}
-	ErrInvalidSyntax = errors.New("resp: invalid syntax")
+	lineEndingSlice       = []byte{'\r', '\n'}
+	ErrInvalidSyntax      = errors.New("resp: invalid syntax")
 )
 
 type RESPWriter struct {
@@ -43,7 +43,7 @@ func NewRESPWriter(writer io.Writer) *RESPWriter {
 
 func NewRESPReader(reader io.Reader) *RESPReader {
 	return &RESPReader{
-		Reader: bufio.NewReaderSize(reader, 32 * 1024), //32 kilobytes
+		Reader: bufio.NewReaderSize(reader, 32*1024), //32 kilobytes
 	}
 }
 
@@ -88,7 +88,7 @@ func (r *RESPReader) readLine() (line []byte, err error) {
 		return nil, err
 	}
 
-	if len(line) > 1 && line[len(line) - 2] == '\r' {
+	if len(line) > 1 && line[len(line)-2] == '\r' {
 		return line, nil
 	} else {
 		// Line was too short or newline wasn't preceded by carriage return
@@ -105,7 +105,7 @@ func (r *RESPReader) readBulkString(line []byte) ([]byte, error) {
 		return line, nil
 	}
 
-	buf := make([]byte, len(line) + count + 2)
+	buf := make([]byte, len(line)+count+2)
 	copy(buf, line)
 	_, err = r.Read(buf[len(line):])
 	if err != nil {

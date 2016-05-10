@@ -3,16 +3,16 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"runtime"
+	"bufio"
 	"flag"
+	"fmt"
 	"net"
+	"os"
 	"os/signal"
+	"runtime"
+	"runtime/debug"
 	"runtime/pprof"
 	"time"
-	"runtime/debug"
-	"bufio"
 )
 
 var bytesWritten uint64
@@ -32,7 +32,7 @@ func main() {
 	var tcpNoDelay = flag.Bool("nodelay", false, "set TCP_NODELAY for connection.")
 	var traceInterval = flag.Int("trace", 3, "the trace interval in seconds.")
 
-	flag.Usage = func(){
+	flag.Usage = func() {
 		fmt.Println(fmt.Sprintf("Usage: %v [--port=int] [--writev=bool] [--cpus=int] [--cpup=string] [--memp=string] [--group=int] [--header=int] [--payload=int] [--trace=int] [-h|--help]", os.Args[0]))
 		fmt.Println(fmt.Sprintf("	port, the listen port. default 1985"))
 		fmt.Println(fmt.Sprintf("	writev, whether use writev to send. default false(use write)"))
@@ -58,7 +58,7 @@ func main() {
 	fmt.Println("use SIGINT or ctrl+c to interrupt program and collect cpu/mem profile data.")
 
 	// always start profile.
-	if w,err := os.Create(*cpuProfile); err != nil {
+	if w, err := os.Create(*cpuProfile); err != nil {
 		panic(err)
 	} else if err := pprof.StartCPUProfile(w); err != nil {
 		panic(err)
@@ -66,12 +66,12 @@ func main() {
 	// use signal SIGINT to profile and quit.
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt)
-	go func(){
+	go func() {
 		<-c
 		fmt.Println("To profile program:")
 		pprof.StopCPUProfile()
 		fmt.Println("go tool pprof", os.Args[0], *cpuProfile)
-		if w,err := os.Create(*memProfile); err != nil {
+		if w, err := os.Create(*memProfile); err != nil {
 			panic(err)
 		} else if err := pprof.Lookup("heap").WriteTo(w, 0); err != nil {
 			panic(err)
@@ -88,7 +88,7 @@ func main() {
 		for {
 			diff := bytesWritten - previous
 			elapse := time.Now().Sub(sample) / time.Millisecond
-			if (diff > 0 && elapse > 0) {
+			if diff > 0 && elapse > 0 {
 				mbps := float64(diff) * 8 / float64(elapse) / 1000
 				debug.ReadGCStats(stat)
 				if len(stat.Pause) > 3 {
@@ -101,22 +101,22 @@ func main() {
 
 			time.Sleep(time.Second * time.Duration(*traceInterval))
 		}
-	} ()
+	}()
 
 	var err error
 	var l *net.TCPListener
 	var addr *net.TCPAddr
-	if addr,err = net.ResolveTCPAddr("tcp", fmt.Sprintf(":%v", *port)); err != nil {
+	if addr, err = net.ResolveTCPAddr("tcp", fmt.Sprintf(":%v", *port)); err != nil {
 		panic(err)
 	}
-	if l,err = net.ListenTCP("tcp", addr); err != nil {
+	if l, err = net.ListenTCP("tcp", addr); err != nil {
 		panic(err)
 	}
 	fmt.Println("listen at", fmt.Sprintf("tcp://%v", addr))
 
 	// collect the bytes written.
 	cnn := make(chan int, 64)
-	go func(){
+	go func() {
 		for nn := range cnn {
 			bytesWritten += uint64(nn)
 		}
@@ -127,7 +127,7 @@ func main() {
 
 	for {
 		var c *net.TCPConn
-		if c,err = l.AcceptTCP(); err != nil {
+		if c, err = l.AcceptTCP(); err != nil {
 			panic(err)
 		}
 		// support concurrency for each client.
@@ -145,18 +145,18 @@ func srs_serve(c *net.TCPConn, nodelay, writev bool, group [][]byte, cnn chan in
 	defer fmt.Println(fmt.Sprintf("server %v ok", c.RemoteAddr()))
 
 	var nn int
-	for _,b := range group {
+	for _, b := range group {
 		nn += len(b)
 	}
 
 	// use write, send one by one packet.
-	if (!writev) {
+	if !writev {
 		// use bufio to cache and flush the group.
 		w := bufio.NewWriterSize(c, nn)
 		// write to bufio and flush iovecs.
 		for {
-			for _,b := range group {
-				if _,err = w.Write(b); err != nil {
+			for _, b := range group {
+				if _, err = w.Write(b); err != nil {
 					return
 				}
 			}
@@ -170,7 +170,7 @@ func srs_serve(c *net.TCPConn, nodelay, writev bool, group [][]byte, cnn chan in
 
 	// use writev to send group.
 	for {
-		if _,err = c.Writev(group); err != nil {
+		if _, err = c.Writev(group); err != nil {
 			return
 		}
 		cnn <- nn
@@ -178,11 +178,11 @@ func srs_serve(c *net.TCPConn, nodelay, writev bool, group [][]byte, cnn chan in
 	return
 }
 
-func srs_recv_group_packets(groupSize, headerSize, payloadSize int) ([][]byte) {
+func srs_recv_group_packets(groupSize, headerSize, payloadSize int) [][]byte {
 	// create group of tcp packets to send.
 	// each group is a serial of header and payload,
 	// 		group = h0, p0, h1, p1, ..., hN, pN
-	group := make([][]byte, groupSize * 2)
+	group := make([][]byte, groupSize*2)
 	for i := 0; i < len(group); i += 2 {
 		// create header.
 		header := make([]byte, headerSize)
@@ -191,7 +191,7 @@ func srs_recv_group_packets(groupSize, headerSize, payloadSize int) ([][]byte) {
 		// the group contains N*(header, payload)
 		// h0, p0, h1, p1, ..., hN, pN
 		group[i] = header
-		group[i+1]=payload
+		group[i+1] = payload
 	}
 
 	return group

@@ -1,10 +1,9 @@
-
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
-	"encoding/json"
 )
 
 type Response1 struct {
@@ -45,7 +44,7 @@ func main() {
 	fmt.Println(string(res1B))
 
 	res2D := &Response2{
-		Page: 1,
+		Page:   1,
 		Fruits: []string{"apple", "peach", "pear"},
 	}
 	res2B, _ := json.Marshal(res2D)

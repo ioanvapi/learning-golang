@@ -1,10 +1,10 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
-	"io/ioutil"
-	"fmt"
 	"strings"
 )
 
@@ -31,4 +31,3 @@ func main() {
 	body, err = ioutil.ReadAll(resp.Body)
 	fmt.Println("post:\n", keepLines(string(body), 3))
 }
-

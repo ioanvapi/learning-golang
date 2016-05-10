@@ -28,8 +28,8 @@ func Describe(s Shaper) {
 func main() {
 	r := &Rect{width: 10, height: 5}
 	x := &Rect{width: 7, height: 10}
-//	rs := &Rects{r, x}
+	//	rs := &Rects{r, x}
 	Describe(r)
 	Describe(x)
-//	Describe(rs)
+	//	Describe(rs)
 }

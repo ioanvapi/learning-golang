@@ -14,7 +14,7 @@ func (f Foo) Add(x int) int {
 
 func main() {
 	var x Foo
-	x = func() int {return 1}
+	x = func() int { return 1 }
 
 	fmt.Println(x())
 	fmt.Println(x.Add(3))

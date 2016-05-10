@@ -13,8 +13,8 @@ func main() {
 	}()
 	ch := make(chan int)
 	select {
-	case <- ch:
-	case <- timeout:
+	case <-ch:
+	case <-timeout:
 		fmt.Println("timeout!")
 	}
 }

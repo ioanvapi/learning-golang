@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"flag"
+	"fmt"
 )
 
 // bind the flag to a variable
 var flagvar int
+
 func init() {
 	flag.IntVar(&flagvar, "flagvar", 1234, "help message for flagvar")
 }

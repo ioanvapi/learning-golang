@@ -10,8 +10,8 @@ import (
 func main() {
 	gc := gcache.New(2).
 		AddedFunc(func(key, value interface{}) {
-		fmt.Println("added key:", key)
-	}).
+			fmt.Println("added key:", key)
+		}).
 		Build()
 	for i := 0; i < 3; i++ {
 		gc.Set(i, i*i)

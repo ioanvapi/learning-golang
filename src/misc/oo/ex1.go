@@ -13,7 +13,6 @@ type Rect struct {
 // type declaration (slice)
 type Rects []Rect
 
-
 // declaring a method
 func (r *Rect) Area() int {
 	return r.width * r.height
@@ -30,12 +29,12 @@ func (rs Rects) Area() int {
 
 func main() {
 	r := Rect{
-		width: 10,
+		width:  10,
 		height: 5,
 	}
 
 	x := Rect{
-		width: 7,
+		width:  7,
 		height: 10,
 	}
 

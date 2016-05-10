@@ -16,5 +16,5 @@ func main() {
 func testf() {
 	fmt.Println("do in testf")
 	//if uncomment the next statment, then go build give error message : .\gprog.go:19: undefined: init
-//	init()
+	//	init()
 }

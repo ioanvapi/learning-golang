@@ -60,7 +60,7 @@ func main() {
 
 To Test:
 
-  go run CommandLineFlag.go 
+  go run CommandLineFlag.go
   go run CommandLineFlag.go -tabwidth=6 aa
 
 */

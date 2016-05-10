@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/PuerkitoBio/goquery"
 	"io"
 	"logging"
 	"net/http"
@@ -15,6 +14,8 @@ import (
 	pipeline "webcrawler/itempipeline"
 	sched "webcrawler/scheduler"
 	"webcrawler/tool"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 // 日志记录器。
