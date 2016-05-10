@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/tinylib/msgp/msgp"
@@ -20,5 +21,8 @@ func main() {
 	p := Primitive{1, 2, 3.0}
 	out, _ := p.MarshalMsg(nil)
 	msgp.UnmarshalAsJSON(os.Stdout, out)
-	print("\n")
+	fmt.Println()
+	p1 := new(Primitive)
+	left, err := p1.UnmarshalMsg(out)
+	fmt.Println(left, err, p1)
 }
