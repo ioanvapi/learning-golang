@@ -6,18 +6,29 @@
 		<script src="jquery-2.1.4.min.js"></script>
 		<script>
       $(function() {
-        var ws = new WebSocket("ws://localhost:8080/echo");
-        ws.onmessage = function(e) {
-          console.log("收到消息:" + event.data);
-        };
+				if (window.WebSocket != undefined) {
+	        var ws = new WebSocket("ws://localhost:8080/echo");
+					ws.onopen = function (event) {
+						console.log("connected to: " + event.currentTarget.URL);
+					};
+					ws.onclose = function () {
+						console.log("closed");
+					};
+					ws.onerror = function (event) {
+						console.log("Error: " + event.data);
+					};
+	        ws.onmessage = function(event) {
+	          console.log("receive message: " + event.data);
+	        };
 
-        var $ul = $('#msg-list');
-        $('#sendBtn').click(function(){
-          var data = $('#name').val();
-          ws.send(data);
-          console.log("发送消息:" + data);
-          $('<li>').text(data).appendTo($ul);
-        });
+	        var $ul = $('#msg-list');
+	        $('#sendBtn').click(function(){
+	          var data = $('#name').val();
+	          ws.send(data);
+	          console.log("send message:" + data);
+	          $('<li>').text(data).appendTo($ul);
+	        });
+				}
       });
 		</script>
 	</head>
