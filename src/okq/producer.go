@@ -19,6 +19,6 @@ func main() {
 			panic(err)
 		}
 		fmt.Println("produce")
-		time.Sleep(2 * time.Millisecond)
+		time.Sleep(2 * time.Second)
 	}
 }
