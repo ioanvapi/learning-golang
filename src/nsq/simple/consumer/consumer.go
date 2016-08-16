@@ -15,12 +15,12 @@ func main() {
 	config := nsq.NewConfig()
 	q, _ := nsq.NewConsumer("write_test", "ch", config)
 	q.AddHandler(nsq.HandlerFunc(func(message *nsq.Message) error {
-		log.Printf("Got a message: %v", message)
+		log.Printf("Got Message body: %v\n", string(message.Body))
 		wg.Done()
 		return nil
 	}))
 	// err := q.ConnectToNSQD("127.0.0.1:4150")
-	err := q.ConnectToNSQLookupd("127.0.0.1:4161")
+	err := q.ConnectToNSQLookupd("10.0.3.126:4161")
 	if err != nil {
 		log.Panic("Could not connect")
 	}
