@@ -14,7 +14,7 @@ type Person struct {
 }
 
 func main() {
-	session, err := mgo.Dial("localhost")
+	session, err := mgo.Dial("10.0.6.22")
 	if err != nil {
 		log.Fatal(err)
 	}
