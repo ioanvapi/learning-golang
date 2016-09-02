@@ -13,6 +13,30 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// Errors
+
+type Errors struct {
+	Errors []*Error `json:"errors"`
+}
+
+type Error struct {
+	Id     string `json:"id"`
+	Status int    `json:"status"`
+	Title  string `json:"title"`
+	Detail string `json:"detail"`
+}
+
+var (
+	ErrNotAcceptable  = &Error{"not_acceptable", 406, "Not Acceptable", "Accept header must be set to 'application/vnd.api+json'."}
+	ErrInternalServer = &Error{"internal_server_error", 500, "Internal Server Error", "Something went wrong."}
+)
+
+func WriteError(w http.ResponseWriter, err *Error) {
+	w.Header().Set("Content-Type", "application/vnd.api+json")
+	w.WriteHeader(err.Status)
+	json.NewEncoder(w).Encode(Errors{[]*Error{err}})
+}
+
 // Repo
 
 type Tea struct {
@@ -55,44 +79,12 @@ func (c *appContext) teaHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(tea)
 }
 
-// func recoverHandler(next http.Handler) http.Handler {
-// 	fn := func(w http.ResponseWriter, r *http.Request) {
-// 		defer func() {
-// 			if err := recover(); err != nil {
-// 				log.Printf("panic: %+v", err)
-// 				http.Error(w, http.StatusText(500), 500)
-// 			}
-// 		}()
-
-// 		next.ServeHTTP(w, r)
-// 	}
-
-// 	return http.HandlerFunc(fn)
-// }
-
-type Errors struct {
-	// We use an array of *Error to set common errors in variables.
-	// More on that later.
-	Errors []*Error `json:"errors"`
-}
-
-type Error struct {
-	ID     string `json:"id"`
-	Status int    `json:"status"`
-	Title  string `json:"title"`
-	Detail string `json:"detail"`
-}
-
 func recoverHandler(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			if err := recover(); err != nil {
 				log.Printf("panic: %+v", err)
-				// http.Error(w, http.StatusText(500), 500)
-				jsonErr := &Error{"internal_server_error", 500, "Internal Server Error", "Something went wrong."}
-				w.Header().Set("Content-Type", "application/vnd.api+json")
-				w.WriteHeader(jsonErr.Status)
-				json.NewEncoder(w).Encode(Errors{[]*Error{jsonErr}})
+				WriteError(w, ErrInternalServer)
 			}
 		}()
 
@@ -108,6 +100,19 @@ func loggingHandler(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r)
 		t2 := time.Now()
 		log.Printf("[%s] %q %v\n", r.Method, r.URL.String(), t2.Sub(t1))
+	}
+
+	return http.HandlerFunc(fn)
+}
+
+func acceptHandler(next http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("Accept") != "application/vnd.api+json" {
+			WriteError(w, ErrNotAcceptable)
+			return
+		}
+
+		next.ServeHTTP(w, r)
 	}
 
 	return http.HandlerFunc(fn)
@@ -133,7 +138,7 @@ func wrapHandler(h http.Handler) httprouter.Handle {
 }
 
 func main() {
-	session, err := mgo.Dial("10.0.6.22")
+	session, err := mgo.Dial("localhost")
 	if err != nil {
 		panic(err)
 	}
@@ -141,8 +146,8 @@ func main() {
 	session.SetMode(mgo.Monotonic, true)
 
 	appC := appContext{session.DB("test")}
-	commonHandlers := alice.New(context.ClearHandler, loggingHandler, recoverHandler)
+	commonHandlers := alice.New(context.ClearHandler, loggingHandler, recoverHandler, acceptHandler)
 	router := NewRouter()
 	router.Get("/teas/:id", commonHandlers.ThenFunc(appC.teaHandler))
-	http.ListenAndServe(":8888", router)
+	http.ListenAndServe(":8080", router)
 }
