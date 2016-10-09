@@ -5,6 +5,7 @@ import (
 	"net"
 	"os"
 	"time"
+	"log"
 )
 
 func main() {
@@ -17,18 +18,21 @@ func main() {
 		handleClient(conn)
 	}
 }
+
 func handleClient(conn *net.UDPConn) {
 	var buf [512]byte
 	_, addr, err := conn.ReadFromUDP(buf[0:])
 	if err != nil {
+		log.Printf("Read from UDP failed, err: %v", err)
 		return
 	}
 	daytime := time.Now().String()
 	conn.WriteToUDP([]byte(daytime), addr)
 }
+
 func checkError(err error) {
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Fatal error ", err.Error())
+		fmt.Fprintf(os.Stderr, "Fatal error %v", err.Error())
 		os.Exit(1)
 	}
 }
