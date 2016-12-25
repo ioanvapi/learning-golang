@@ -178,7 +178,7 @@ func main() {
 		s, _ := ret.Str()
 		Trace.Println(fmt.Sprintf("GET foo %v", s))
 
-		NewStandardResponse(eps).Handle(w, r)
+		NewStandardResponse(s).Handle(w, r)
 	})
 
 	if err := http.ListenAndServe(listen, nil); err != nil {
