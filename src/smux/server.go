@@ -40,6 +40,7 @@ func handleConn(conn net.Conn) {
 		log.Errorf("session accept stream failed, err: %v", err)
 		return
 	}
+	defer stream.Close()
 
 	buf := make([]byte, 1024)
 	n, err := stream.Read(buf)
