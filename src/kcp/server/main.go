@@ -45,8 +45,7 @@ var opts struct {
 }
 
 const (
-	saltPbkdf2     = "Akagi201"
-	maxScavengeTTL = 10 * time.Minute
+	saltPbkdf2 = "Akagi201"
 )
 
 var log *logrus.Logger
@@ -91,35 +90,6 @@ func newCompStream(conn net.Conn) *compStream {
 	c.w = snappy.NewBufferedWriter(conn)
 	c.r = snappy.NewReader(conn)
 	return c
-}
-
-type scavengeSession struct {
-	session *smux.Session
-	ttl     time.Time
-}
-
-func scavenger(ch chan *smux.Session) {
-	ticker := time.NewTicker(30 * time.Second)
-	defer ticker.Stop()
-	var sessionList []scavengeSession
-	for {
-		select {
-		case sess := <-ch:
-			sessionList = append(sessionList, scavengeSession{sess, time.Now()})
-		case <-ticker.C:
-			var newList []scavengeSession
-			for k := range sessionList {
-				s := sessionList[k]
-				if s.session.NumStreams() == 0 || s.session.IsClosed() || time.Since(s.ttl) > maxScavengeTTL {
-					log.Infof("session scavenged")
-					s.session.Close()
-				} else {
-					newList = append(newList, sessionList[k])
-				}
-			}
-			sessionList = newList
-		}
-	}
 }
 
 func snmpLogger(path string, interval int) {
