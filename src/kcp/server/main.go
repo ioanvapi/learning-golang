@@ -23,7 +23,7 @@ var opts struct {
 	ListenAddr   string `long:"listen" default:"0.0.0.0:8327" description:"KCP address to listen at"`
 	Key          string `long:"key" default:"it's a secrect" description:"pre-shared secret between client and server"`
 	Crypt        string `long:"crypt" default:"aes" description:"tea, xor, none, aes-128, aes-192, blowfish, twofish, cast5, 3des, xtea, salsa20 aes"`
-	Mode         string `long:"mode" default:"fast" description:"profiles: normal, fast, fast2, fast3"`
+	Mode         string `long:"mode" default:"fast" description:"profiles: normal, fast, fast2, fast3, manual"`
 	Conn         int    `long:"conn" default:"1" description:"set num of UDP connections to server"`
 	AutoExpire   int    `long:"autoexpire" default:"0" description:"set auto expiration time(in seconds) for a single UDP connection, 0 to disable"`
 	MTU          int    `long:"mtu" default:"1350" description:"set maximum transmission unit for UDP packets"`
@@ -176,6 +176,8 @@ func main() {
 		opts.NoDelay, opts.Interval, opts.Resend, opts.NoCongestion = 1, 20, 2, 1
 	case "fast3":
 		opts.NoDelay, opts.Interval, opts.Resend, opts.NoCongestion = 1, 10, 2, 1
+	case "manual":
+		log.Infof("manual mode, please manual set nodelay, interval, resend, nocongestion")
 	default:
 		log.Fatalf("Unsupported mode: %v", opts.Mode)
 	}
