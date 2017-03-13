@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"time"
-
-	"github.com/connectordb/golang-lru-timedcache"
 )
 
 func main() {

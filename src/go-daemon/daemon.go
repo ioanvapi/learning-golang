@@ -6,8 +6,6 @@ import (
 	"os"
 	"syscall"
 	"time"
-
-	"github.com/ossrs/go-daemon"
 )
 
 var (

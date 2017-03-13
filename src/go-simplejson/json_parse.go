@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-
-	"github.com/bitly/go-simplejson"
 )
 
 func errHndlr(err error) {

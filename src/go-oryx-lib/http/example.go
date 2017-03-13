@@ -41,7 +41,7 @@ func main() {
 
 	// SystemComplexError
 	sce := ohttp.SystemComplexError{
-		Code: errorSystemComplexError,
+		Code:    errorSystemComplexError,
 		Message: "SystemComplexError string",
 	}
 	http.HandleFunc("/system_complex_error", ohttp.Error(nil, sce).ServeHTTP)

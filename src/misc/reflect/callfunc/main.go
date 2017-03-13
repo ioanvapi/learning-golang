@@ -20,7 +20,7 @@ func sum(args ...int) int {
 
 func divmod(a, b int) (div int, mod int) {
 	div = a / b
-	mod = a - div * b
+	mod = a - div*b
 	return
 }
 

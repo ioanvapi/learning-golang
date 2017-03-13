@@ -1,10 +1,6 @@
 package main
 
-import (
-	"log"
-
-	"github.com/nsqio/go-nsq"
-)
+import "log"
 
 func main() {
 	config := nsq.NewConfig()

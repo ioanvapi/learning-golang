@@ -12,9 +12,9 @@ import (
 // Prox our RerverseProxy object
 type Prox struct {
 	// target url of reverse proxy
-	target        *url.URL
+	target *url.URL
 	// instance of Go ReverseProxy that will do the job for us
-	proxy         *httputil.ReverseProxy
+	proxy *httputil.ReverseProxy
 	// add some route patterns with regexp
 	//routePatterns []*regexp.Regexp
 }
@@ -31,8 +31,8 @@ func (p *Prox) handle(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-GoProxy", "GoProxy")
 
 	//if p.routePatterns == nil || p.parseWhiteList(r) {
-		// call to magic method from ReverseProxy object
-		p.proxy.ServeHTTP(w, r)
+	// call to magic method from ReverseProxy object
+	p.proxy.ServeHTTP(w, r)
 	//}
 }
 
@@ -49,10 +49,10 @@ func (p *Prox) handle(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	const (
-		defaultPort             = ":8888"
-		defaultPortUsage        = "default server port, ':8888'"
-		defaultTarget           = "http://127.0.0.1:8889"
-		defaultTargetUsage      = "default redirect url, 'http://127.0.0.1:8889'"
+		defaultPort        = ":8888"
+		defaultPortUsage   = "default server port, ':8888'"
+		defaultTarget      = "http://127.0.0.1:8889"
+		defaultTargetUsage = "default redirect url, 'http://127.0.0.1:8889'"
 		//defaultWhiteRoutes      = `^\/$|[\w|/]*.js|/path|/path2`
 		//defaultWhiteRoutesUsage = "list of white route as regexp, '/path1*,/path2*...."
 	)

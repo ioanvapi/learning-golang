@@ -11,13 +11,13 @@ import (
 const (
 	unackedLimit = 1000
 	numConsumers = 10
-	batchSize = 1000
+	batchSize    = 1000
 )
 
 func main() {
 	connection := rmq.OpenConnection("consumer", "tcp", "localhost:6379", 2)
 	queue := connection.OpenQueue("things")
-	queue.StartConsuming(unackedLimit, 500 * time.Millisecond)
+	queue.StartConsuming(unackedLimit, 500*time.Millisecond)
 	for i := 0; i < numConsumers; i++ {
 		name := fmt.Sprintf("consumer %d", i)
 		queue.AddConsumer(name, NewConsumer(i))
@@ -41,14 +41,14 @@ func NewConsumer(tag int) *Consumer {
 
 func (consumer *Consumer) Consume(delivery rmq.Delivery) {
 	consumer.count++
-	if consumer.count % batchSize == 0 {
+	if consumer.count%batchSize == 0 {
 		duration := time.Now().Sub(consumer.before)
 		consumer.before = time.Now()
 		perSecond := time.Second / (duration / batchSize)
 		log.Printf("%s consumed %d %s %d", consumer.name, consumer.count, delivery.Payload(), perSecond)
 	}
 	time.Sleep(time.Millisecond)
-	if consumer.count % batchSize == 0 {
+	if consumer.count%batchSize == 0 {
 		delivery.Reject()
 	} else {
 		delivery.Ack()

@@ -1,10 +1,6 @@
 package main
 
-import (
-	"fmt"
-
-	"gopkg.in/vmihailenco/msgpack.v2"
-)
+import "fmt"
 
 func main() {
 	b, err := msgpack.Marshal(true)

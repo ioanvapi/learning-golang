@@ -5,7 +5,6 @@ import (
 	"os"
 	"sync"
 
-	"github.com/nsqio/go-nsq"
 	uuid "github.com/satori/go.uuid"
 )
 

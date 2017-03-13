@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
-	"net/url"
 	"net/http/httputil"
+	"net/url"
+	"os"
 )
 
 func main() {

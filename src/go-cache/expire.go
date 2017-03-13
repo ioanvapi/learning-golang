@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"time"
-
-	"github.com/patrickmn/go-cache"
 )
 
 func main() {

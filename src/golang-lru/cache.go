@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/hashicorp/golang-lru"
+	"github.com/golang/groupcache/lru"
 )
 
 func main() {

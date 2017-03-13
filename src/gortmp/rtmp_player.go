@@ -11,7 +11,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/zhangpeihao/goflv"
 	rtmp "github.com/zhangpeihao/gortmp"
 	"github.com/zhangpeihao/log"
 )

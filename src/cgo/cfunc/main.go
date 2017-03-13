@@ -10,5 +10,5 @@ import "C"
 import "fmt"
 
 func main() {
-    fmt.Println(C.datspecialnumber())
+	fmt.Println(C.datspecialnumber())
 }

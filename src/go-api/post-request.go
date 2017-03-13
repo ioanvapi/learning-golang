@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
-
-	"github.com/dpapathanasiou/go-api"
 )
 
 type Message struct {

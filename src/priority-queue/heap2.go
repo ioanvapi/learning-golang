@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -9,7 +8,7 @@ import (
 )
 
 type Task struct {
-	Time time.Time
+	Time    time.Time
 	Comment string
 }
 
@@ -33,23 +32,23 @@ func (self *Tasks) Pop() interface{} {
 	old := *self
 	n := len(old)
 	task := old[n-1]
-	*self = old[0:n-1]
+	*self = old[0 : n-1]
 	return task
 }
 
 type TaskQueue struct {
-	lock *sync.RWMutex
-	cond *sync.Cond
-	tasks Tasks
+	lock     *sync.RWMutex
+	cond     *sync.Cond
+	tasks    Tasks
 	timeouts Tasks
-	push chan Task
+	push     chan Task
 }
 
 func NewTaskQueue() *TaskQueue {
 	self := &TaskQueue{
 		tasks: Tasks{},
-		lock: &sync.RWMutex{},
-		push: make(chan Task),
+		lock:  &sync.RWMutex{},
+		push:  make(chan Task),
 	}
 	self.cond = sync.NewCond(self.lock)
 	heap.Init(&self.tasks)
@@ -118,18 +117,17 @@ func (self *TaskQueue) Pop() (task Task) {
 func main() {
 	queue := NewTaskQueue()
 
-	queue.Push(Task{Time: time.Now().Add(-time.Second*3), Comment: "-3"})
-	queue.Push(Task{Time: time.Now().Add(time.Second*3), Comment: "3"})
-	queue.Push(Task{Time: time.Now().Add(time.Second*2), Comment: "2"})
+	queue.Push(Task{Time: time.Now().Add(-time.Second * 3), Comment: "-3"})
+	queue.Push(Task{Time: time.Now().Add(time.Second * 3), Comment: "3"})
+	queue.Push(Task{Time: time.Now().Add(time.Second * 2), Comment: "2"})
 	queue.Push(Task{Time: time.Now().Add(time.Second), Comment: "1"})
 
 	fmt.Println("start pop")
 
-	go queue.Push(Task{Time: time.Now().Add(time.Millisecond*500), Comment: "500ms"})
+	go queue.Push(Task{Time: time.Now().Add(time.Millisecond * 500), Comment: "500ms"})
 
 	for {
 		task := queue.Pop()
 		fmt.Println(task.Comment)
 	}
 }
-

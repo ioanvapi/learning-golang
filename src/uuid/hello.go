@@ -1,10 +1,6 @@
 package main
 
-import (
-	"fmt"
-
-	"github.com/satori/go.uuid"
-)
+import "fmt"
 
 func main() {
 	// Creating UUID Version 1

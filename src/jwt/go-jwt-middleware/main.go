@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/auth0/go-jwt-middleware"
-	"github.com/gorilla/context"
-	"github.com/dgrijalva/jwt-go"
-	"net/http"
 	"fmt"
+	"net/http"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/gorilla/context"
 )
 
 var myHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

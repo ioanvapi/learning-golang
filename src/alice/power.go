@@ -6,7 +6,6 @@ import (
 
 	"github.com/justinas/alice"
 	"github.com/justinas/nosurf"
-	"gopkg.in/throttled/throttled.v1"
 )
 
 func timeoutHandler(h http.Handler) http.Handler {

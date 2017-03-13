@@ -3,8 +3,6 @@ package main
 import (
 	"log"
 	"sync"
-
-	"github.com/nsqio/go-nsq"
 )
 
 func main() {

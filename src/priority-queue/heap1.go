@@ -32,8 +32,8 @@ func (self *TaskQueue) Push(x interface{}) {
 func (self *TaskQueue) Pop() interface{} {
 	old := *self
 	n := len(old)
-	task := old[n - 1]
-	*self = old[0 : n - 1]
+	task := old[n-1]
+	*self = old[0 : n-1]
 	return task
 }
 

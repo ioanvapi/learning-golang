@@ -1,6 +1,4 @@
-
 //line calc.y:8
-
 package main
 
 import (
@@ -13,9 +11,8 @@ import (
 var regs = make([]int, 26)
 var base int
 
-
 //line calc.y:25
-type CalcSymType struct{
+type CalcSymType struct {
 	yys int
 	val int
 }
@@ -43,13 +40,13 @@ const CalcErrCode = 2
 const CalcMaxDepth = 200
 
 //line calc.y:94
-      /*  start  of  programs  */
+
+/*  start  of  programs  */
 
 type CalcLex struct {
-	s string
+	s   string
 	pos int
 }
-
 
 func (l *CalcLex) Lex(lval *CalcSymType) int {
 	var c rune = ' '
@@ -409,58 +406,80 @@ Calcdefault:
 	case 3:
 		//line calc.y:49
 		{
-				fmt.Printf( "%d\n", CalcS[Calcpt-0].val );
-			}
+			fmt.Printf("%d\n", CalcS[Calcpt-0].val)
+		}
 	case 4:
 		//line calc.y:53
 		{
-				regs[CalcS[Calcpt-2].val]  =  CalcS[Calcpt-0].val
-			}
+			regs[CalcS[Calcpt-2].val] = CalcS[Calcpt-0].val
+		}
 	case 5:
 		//line calc.y:59
-		{ CalcVAL.val  =  CalcS[Calcpt-1].val }
+		{
+			CalcVAL.val = CalcS[Calcpt-1].val
+		}
 	case 6:
 		//line calc.y:61
-		{ CalcVAL.val  =  CalcS[Calcpt-2].val + CalcS[Calcpt-0].val }
+		{
+			CalcVAL.val = CalcS[Calcpt-2].val + CalcS[Calcpt-0].val
+		}
 	case 7:
 		//line calc.y:63
-		{ CalcVAL.val  =  CalcS[Calcpt-2].val - CalcS[Calcpt-0].val }
+		{
+			CalcVAL.val = CalcS[Calcpt-2].val - CalcS[Calcpt-0].val
+		}
 	case 8:
 		//line calc.y:65
-		{ CalcVAL.val  =  CalcS[Calcpt-2].val * CalcS[Calcpt-0].val }
+		{
+			CalcVAL.val = CalcS[Calcpt-2].val * CalcS[Calcpt-0].val
+		}
 	case 9:
 		//line calc.y:67
-		{ CalcVAL.val  =  CalcS[Calcpt-2].val / CalcS[Calcpt-0].val }
+		{
+			CalcVAL.val = CalcS[Calcpt-2].val / CalcS[Calcpt-0].val
+		}
 	case 10:
 		//line calc.y:69
-		{ CalcVAL.val  =  CalcS[Calcpt-2].val % CalcS[Calcpt-0].val }
+		{
+			CalcVAL.val = CalcS[Calcpt-2].val % CalcS[Calcpt-0].val
+		}
 	case 11:
 		//line calc.y:71
-		{ CalcVAL.val  =  CalcS[Calcpt-2].val & CalcS[Calcpt-0].val }
+		{
+			CalcVAL.val = CalcS[Calcpt-2].val & CalcS[Calcpt-0].val
+		}
 	case 12:
 		//line calc.y:73
-		{ CalcVAL.val  =  CalcS[Calcpt-2].val | CalcS[Calcpt-0].val }
+		{
+			CalcVAL.val = CalcS[Calcpt-2].val | CalcS[Calcpt-0].val
+		}
 	case 13:
 		//line calc.y:75
-		{ CalcVAL.val  = -CalcS[Calcpt-0].val  }
+		{
+			CalcVAL.val = -CalcS[Calcpt-0].val
+		}
 	case 14:
 		//line calc.y:77
-		{ CalcVAL.val  = regs[CalcS[Calcpt-0].val] }
+		{
+			CalcVAL.val = regs[CalcS[Calcpt-0].val]
+		}
 	case 15:
 		CalcVAL.val = CalcS[Calcpt-0].val
 	case 16:
 		//line calc.y:82
 		{
-				CalcVAL.val = CalcS[Calcpt-0].val;
-				if CalcS[Calcpt-0].val==0 {
-					base = 8
-				} else {
-					base = 10
-				}
+			CalcVAL.val = CalcS[Calcpt-0].val
+			if CalcS[Calcpt-0].val == 0 {
+				base = 8
+			} else {
+				base = 10
 			}
+		}
 	case 17:
 		//line calc.y:91
-		{ CalcVAL.val = base * CalcS[Calcpt-1].val + CalcS[Calcpt-0].val }
+		{
+			CalcVAL.val = base*CalcS[Calcpt-1].val + CalcS[Calcpt-0].val
+		}
 	}
 	goto Calcstack /* stack new state and value */
 }

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"os"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/handlers"
 )
@@ -27,7 +27,7 @@ func final(w http.ResponseWriter, r *http.Request) {
 //}
 
 func myLoggingHandler(h http.Handler) http.Handler {
-	logFile, err := os.OpenFile("server.log", os.O_WRONLY | os.O_CREATE | os.O_APPEND, 0666)
+	logFile, err := os.OpenFile("server.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		panic(err)
 	}

@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"os"
 	"time"
-	"log"
 )
 
 func main() {

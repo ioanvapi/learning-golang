@@ -10,7 +10,7 @@ import (
 
 const (
 	numDeliveries = 100000000
-	batchSize = 10000
+	batchSize     = 10000
 )
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 	for i := 0; i < numDeliveries; i++ {
 		delivery := fmt.Sprintf("delivery %d", i)
 		things.Publish(delivery)
-		if i % batchSize == 0 {
+		if i%batchSize == 0 {
 			duration := time.Now().Sub(before)
 			before = time.Now()
 			perSecond := time.Second / (duration / batchSize)

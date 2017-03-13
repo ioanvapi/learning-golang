@@ -15,7 +15,6 @@ import (
 	"github.com/getlantern/smux"
 	"github.com/golang/snappy"
 	"github.com/jessevdk/go-flags"
-	"github.com/xtaci/kcp-go"
 	"golang.org/x/crypto/pbkdf2"
 )
 

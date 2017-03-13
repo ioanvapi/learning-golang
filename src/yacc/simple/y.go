@@ -1,6 +1,8 @@
-
 //line calc.y:2
 package main
+
+import "fmt"
+
 const NUM = 57346
 
 var yyToknames = []string{
@@ -17,7 +19,6 @@ const yyErrCode = 2
 const yyMaxDepth = 200
 
 //line calc.y:23
-
 
 //line yacctab:1
 var yyExca = []int{
@@ -308,19 +309,29 @@ yydefault:
 
 	case 4:
 		//line calc.y:13
-		{printf("%d\n", yyS[yypt-1]);}
+		{
+			printf("%d\n", yyS[yypt-1])
+		}
 	case 6:
 		//line calc.y:17
-		{ yyVAL = yyS[yypt-2] + yyS[yypt-0]; }
+		{
+			yyVAL = yyS[yypt-2] + yyS[yypt-0]
+		}
 	case 7:
 		//line calc.y:18
-		{ yyVAL = yyS[yypt-2] - yyS[yypt-0]; }
+		{
+			yyVAL = yyS[yypt-2] - yyS[yypt-0]
+		}
 	case 8:
 		//line calc.y:19
-		{ yyVAL = yyS[yypt-2] * yyS[yypt-0]; }
+		{
+			yyVAL = yyS[yypt-2] * yyS[yypt-0]
+		}
 	case 9:
 		//line calc.y:20
-		{ yyVAL = yyS[yypt-2] / yyS[yypt-0]; }
+		{
+			yyVAL = yyS[yypt-2] / yyS[yypt-0]
+		}
 	}
 	goto yystack /* stack new state and value */
 }

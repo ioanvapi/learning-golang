@@ -1,10 +1,6 @@
 package main
 
-import (
-	"fmt"
-
-	"github.com/hashicorp/golang-lru"
-)
+import "fmt"
 
 func main() {
 	l, err := lru.NewARC(10)

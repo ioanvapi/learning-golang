@@ -1,27 +1,26 @@
-
 package main
 
 import (
-    "./simple"
-    "fmt"
+	"fmt"
+
+	"./simple"
 )
 
 func main() {
-    // Call our gcd() function
-    x := 42
-    y := 105
-    g := simple.Gcd(x, y)
-    fmt.Println("The gcd of", x, "and", y, "is", g)
+	// Call our gcd() function
+	x := 42
+	y := 105
+	g := simple.Gcd(x, y)
+	fmt.Println("The gcd of", x, "and", y, "is", g)
 
-    // Manipulate the Foo global variable
+	// Manipulate the Foo global variable
 
-    // Output its current value
-    fmt.Println("Foo =", simple.GetFoo())
+	// Output its current value
+	fmt.Println("Foo =", simple.GetFoo())
 
-    // Change its value
-    simple.SetFoo(3.1415926)
+	// Change its value
+	simple.SetFoo(3.1415926)
 
-    // See if the change took effect
-    fmt.Println("Foo =", simple.GetFoo())
+	// See if the change took effect
+	fmt.Println("Foo =", simple.GetFoo())
 }
-

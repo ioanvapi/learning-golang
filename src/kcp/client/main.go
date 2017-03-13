@@ -15,7 +15,6 @@ import (
 	"github.com/golang/snappy"
 	"github.com/jessevdk/go-flags"
 	"github.com/pkg/errors"
-	"github.com/xtaci/kcp-go"
 	"golang.org/x/crypto/pbkdf2"
 )
 

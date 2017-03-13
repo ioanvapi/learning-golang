@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/json"
 	"net/http"
-
-	"github.com/dpapathanasiou/go-api"
 )
 
 type Message struct {
