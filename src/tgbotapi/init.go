@@ -12,9 +12,10 @@ import (
 
 // Opts configs
 var Opts struct {
-	Conf     string `long:"conf" description:"config file"`
-	TgToken  string `long:"tg-token" description:"telegram token"`
-	LogLevel string `long:"log-level" default:"info" description:"Adjust the log level. Valid options are: error, warn, info, debug"`
+	Conf      string `long:"conf" description:"config file"`
+	TulingKey string `long:"tl-key" description:"tuling key"`
+	TgToken   string `long:"tg-token" description:"telegram token"`
+	LogLevel  string `long:"log-level" default:"info" description:"Adjust the log level. Valid options are: error, warn, info, debug"`
 }
 
 func init() {
