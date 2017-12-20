@@ -24,16 +24,16 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("The process id is %v\n", pid)
+	fmt.Printf("The ls process info is %+v\n", pid)
 
 	// 2nd example: show all processes
-	pid, err = os.StartProcess("/bin/ps", []string{"-e", "-opid,ppid,comm"}, procAttr)
+	pid, err = os.StartProcess("/bin/ps", []string{"ps", "-e", "-opid,ppid,comm"}, procAttr)
 	if err != nil {
 		fmt.Printf("Error %v starting process!\n", err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("The process id is %v", pid)
+	fmt.Printf("The ps process info is %+v\n", pid)
 
 	// exec.Run
 	cmd := exec.Command("ls", "-l")
