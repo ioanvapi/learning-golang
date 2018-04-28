@@ -9,10 +9,22 @@ import (
 )
 
 func main() {
-  api := eos.New(&url.URL{Scheme: "http", Host: "ortc.io:8888"}, bytes.Repeat([]byte{0}, 32))
-  infoResp, _ := api.GetInfo()
+  eosRPC, _ := url.Parse("http://ortc.io:8888")
+	api := eos.New(eosRPC, bytes.Repeat([]byte{0}, 32))
+	infoResp, err := api.GetInfo()
+	if err != nil {
+		log.Fatalf("EOS get info failed, err: %v", err)
+	}
+	log.Infof("EOS get info: %+v", infoResp)
 
-  fmt.Printf("infoResp: %+v\n", infoResp)
-  accountResp, _ := api.GetAccount("eosio")
-  fmt.Println("Permission for eosio:", accountResp.Permissions[0].RequiredAuth.Keys)
+	tableResp, err := api.GetTableRows(eos.GetTableRowsRequest{
+		Scope: "EOS",
+		Code: "eosio.token",
+		Table: "stat",
+		JSON: true,
+	})
+
+	tableRows, _ := tableResp.Rows.MarshalJSON()
+
+	log.Infof("table response: %v", string(tableRows))
 }
