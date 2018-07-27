@@ -7,11 +7,11 @@ import (
 
 func main() {
 	e := email.NewEmail()
-	e.From = "Akagi201 <postmaster@mg.ortc.io>"
+	e.From = "Akagi201 <admin201@blockgw.com>"
 	e.To = []string{"akagi201@gmail.com"}
 	e.Subject = "Hello"
 	e.Text = []byte("Testing some Mailgun awesomeness")
-	err := e.Send("smtp.mailgun.org:587", smtp.PlainAuth("", "postmaster@mg.ortc.io", "passwd", "smtp.mailgun.org"))
+	err := e.Send("smtpcloud.sohu.com:25", smtp.PlainAuth("", "admin201", "DNjMEC79v5rowaAh", "smtpcloud.sohu.com"))
 	if err != nil {
 		panic(err)
 	}
